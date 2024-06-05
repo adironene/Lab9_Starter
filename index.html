@@ -1,108 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lab 9</title>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lab 9</title>
+    <style>
+      button {
+        margin: 3px;
+      }
 
-  <style>
-    button {
-      margin: 3px;
-    }
+      button:hover {
+        cursor: pointer;
+      }
 
-    button:hover {
-      cursor: pointer;
-    }
+      #first-num,
+      #second-num {
+        width: 60px;
+      }
 
-    #first-num,
-    #second-num {
-      width: 60px;
-    }
+      output {
+        border: 1px solid gray;
+        display: block;
+        height: 18px;
+        margin-top: 5px;
+        padding: 5px;
+        width: 240px;
+      }
 
-    output {
-      border: 1px solid gray;
-      display: block;
-      height: 18px;
-      margin-top: 5px;
-      padding: 5px;
-      width: 240px;
-    }
+      main {
+        width: 800px;
+      }
 
-    main {
-      width: 800px;
-    }
+      #error-btns {
+        column-gap: 5px;
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 30px;
+        row-gap: 5px;
+      }
 
-    #error-btns {
-      column-gap: 5px;
-      display: flex;
-      flex-wrap: wrap;
-      margin-top: 30px;
-      row-gap: 5px;
-    }
+      #error-btns > * {
+        padding: 8px 2px;
+        width: 122px;
+      }
+    </style>
+  </head>
 
-    #error-btns>* {
-      padding: 8px 2px;
-      width: 122px;
-    }
-  </style>
-</head>
+  <body>
+    <main>
+      <form>
+        <fieldset>
+          <legend>Error Calculator</legend>
+          <input name="first-num" id="first-num" />
+          <select name="operator" id="operator">
+            <option>+</option>
+            <option>-</option>
+            <option>*</option>
+            <option>/</option>
+          </select>
+          <input name="second-num" id="second-num" />
+          <button id="calculate">Calculate</button>
+          <br />
+          <output></output>
+        </fieldset>
+      </form>
 
-<body>
-  <main>
-    <form>
-      <fieldset>
-        <legend>Error Calculator</legend>
-        <input name="first-num" id="first-num" />
-        <select name="operator" id="operator">
-          <option>+</option>
-          <option>-</option>
-          <option>*</option>
-          <option>/</option>
-        </select>
-        <input name="second-num" id="second-num" />
-        <button id="calculate">Calculate</button>
-        <br />
-        <output></output>
-      </fieldset>
-    </form>
+      <section id="error-btns">
+        <button id="logButton">Console Log</button>
+        <button id="errorButton">Console Error</button>
+        <button id="countButton">Console Count</button>
+        <button id="warnButton">Console Warn</button>
+        <button id="assertButton">Console Assert</button>
+        <button id="clearButton">Console Clear</button>
+        <button id="dirButton">Console Dir</button>
+        <button id="dirxmlButton">Console dirxml</button>
+        <button id="groupStartButton">Console Group Start</button>
+        <button id="groupEndButton">Console Group End</button>
+        <button id="tableButton">Console Table</button>
+        <button id="timerStartButton">Start Timer</button>
+        <button id="timerEndButton">End Timer</button>
+        <button id="traceButton">Console Trace</button>
+        <button id="globalButton">Trigger a Global Error</button>
+      </section>
+    </main>
 
-    <section id="error-btns">
-      <button>Console Log</button>
-      <button>Console Error</button>
-      <button>Console Count</button>
-      <button>Console Warn</button>
-      <button>Console Assert</button>
-      <button>Console Clear</button>
-      <button>Console Dir</button>
-      <button>Console dirxml</button>
-      <button>Console Group Start</button>
-      <button>Console Group End</button>
-      <button>Console Table</button>
-      <button>Start Timer</button>
-      <button>End Timer</button>
-      <button>Console Trace</button>
-      <button>Trigger a Global Error</button>
-    </section>
-  </main>
+    <script>
+      let form = document.querySelector("form");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        let output = document.querySelector("output");
+        let firstNum = document.querySelector("#first-num").value;
+        let secondNum = document.querySelector("#second-num").value;
+        let operator = document.querySelector("#operator").value;
+        output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      });
 
-  <script>
-    let form = document.querySelector('form');
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      let output = document.querySelector('output');
-      let firstNum = document.querySelector('#first-num').value;
-      let secondNum = document.querySelector('#second-num').value;
-      let operator = document.querySelector('#operator').value;
-      output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
-    });
+      let errorBtns = Array.from(
+        document.querySelectorAll("#error-btns > button")
+      );
 
-    let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
+      // Start your code here
+      // You may move this JS to another file if you wish
+      document.getElementById("logButton").onclick = function () {
+        console.log("Console Log Demo");
+      };
 
-    // Start your code here
-    // You may move this JS to another file if you wish
-  </script>
-</body>
+      document.getElementById("errorButton").onclick = function () {
+        console.error("Console Error Demo");
+      };
 
+      document.getElementById("countButton").onclick = function () {
+        console.count("count button");
+      };
+
+      document.getElementById("warnButton").onclick = function () {
+        console.warn("Console Warn Button");
+      };
+
+      document.getElementById("assertButton").onclick = function () {
+        console.assert(2 === 3, "The number does not equal 3");
+      };
+
+      document.getElementById("clearButton").onclick = function () {
+        console.clear();
+      };
+
+      let dirButton = document.getElementById("dirButton");
+      document.getElementById("dirButton").onclick = function () {
+        console.dir(dirButton);
+      };
+
+      let dirxmlButton = document.getElementById("dirxmlButton");
+      document.getElementById("dirxmlButton").onclick = function () {
+        console.dirxml(dirxmlButton);
+      };
+
+      document.getElementById("groupStartButton").onclick = function () {
+        console.group();
+      };
+
+      document.getElementById("groupEndButton").onclick = function () {
+        console.groupEnd();
+      };
+
+      const cats = [
+        ["Ben", "Orange Tabby"],
+        ["Oreo", "American Medium Hair"],
+        ["Google", "American Short Hair"],
+      ];
+      document.getElementById("tableButton").onclick = function () {
+        console.table(cats);
+      };
+
+      document.getElementById("timerStartButton").onclick = function () {
+        console.time("Timer Button");
+      };
+
+      document.getElementById("timerEndButton").onclick = function () {
+        console.timeEnd("Timer Button");
+      };
+
+      let handleBtnClick = () => {
+        deep();
+      };
+      let deep = () => {
+        deeper();
+      };
+      let deeper = () => {
+        deepest();
+      };
+      let deepest = () => {
+        console.trace();
+      };
+
+      document.getElementById("traceButton").onclick = function () {
+        handleBtnClick();
+      };
+
+      class customError extends Error {
+        constructor(message) {
+          super(message);
+          this.name = "customError";
+        }
+      }
+
+      try {
+        let startButton = document.getElementById("startButton");
+        if (!startButton) {
+          throw new Error("could not find element");
+        }
+        console.log("Element found, no error thrown.");
+      } catch (error) {
+        console.error("An error occurred:", error.message);
+      } finally {
+        console.log("Finished executing");
+      }
+
+      try {
+        let customButton = document.getElementById("customButton");
+        if (!customButton) {
+          throw new customError("could not find custom button");
+        }
+        console.log("Element found, no error thrown.");
+      } catch (error) {
+        console.error("An error occurred:", error.message);
+      } finally {
+        console.log("Finished executing");
+      }
+
+      document.getElementById("globalButton").onclick = function () {
+        return boom;
+      };
+
+      window.onerror = function (error) {
+        console.log("Catched error using window.onerror", error);
+      };
+    </script>
+    <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+    <script>
+      window.TrackJS &&
+        TrackJS.install({
+          token: "c4e6c31a8e6a42a7a254c4b0478f2f94",
+          // for more configuration options, see https://docs.trackjs.com
+        });
+    </script>
+  </body>
 </html>
